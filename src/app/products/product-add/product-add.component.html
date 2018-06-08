@@ -1,0 +1,41 @@
+<!--
+    name: String;
+    introduction: String;
+    price: Number;
+    isPublished: Boolean;
+    publisher: String;
+-->
+
+<main class="container" *ngIf="product">
+  <h1>{{ title }}</h1>
+  <form #productForm="ngForm" (ngSubmit)="saveProduct()">
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <input required maxlength="100" [(ngModel)]="product.name" type="text" class="form-control" id="name" name="name" placeholder="Nom du produit">
+    </div>
+    
+    <div class="form-group">
+        <label for="introduction">Introduction</label>
+        <textarea required maxlength="1000" [(ngModel)]="product.introduction" class="form-control" id="introduction" name="introduction" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="price">Prix</label>
+        <input pattern="^\d+([.]\d+)*$" [(ngModel)]="product.price" type="text" class="form-control" id="price" name="price" placeholder="Prix du produit">
+    </div>
+
+    <div class="form-group form-check">
+        <input [(ngModel)]="product.isPublished" type="checkbox" class="form-check-input" id="published" name="published">
+        <label class="form-check-label" for="published">Le produit doit-il être publié ?</label>
+    </div>
+
+    <div class="form-group">
+        <label for="publisher">Publicateur</label>
+        <input required maxlength="100" [(ngModel)]="product.publisher" type="text" class="form-control" id="publisher" name="publisher" placeholder="Nom du publicateur">
+    </div>
+
+    <input [disabled]="!productForm.form.valid" type="submit" class="btn btn-primary" [value]="submitValue" >
+  </form>
+
+  <pre>{{ product | json }}</pre>
+</main>
